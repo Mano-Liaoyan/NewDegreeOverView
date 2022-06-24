@@ -4,6 +4,24 @@ import { FaRegUser } from 'react-icons/fa'
 import { MdLockOutline } from 'react-icons/md'
 
 export default function Home() {
+  async function onLoginSubmit(event) {
+    event.preventDefault()
+    // Initialize request body
+    var body = JSON.stringify({
+      username: event.target.account.value,
+      password: event.target.password.value,
+      role: event.target.roles.value.split(' ').join('-').toLowerCase(),
+    })
+    const res = await fetch('/api/login', {
+      body,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+    })
+    const result = await res.json()
+    // alert(`Is this your full name: ${JSON.stringify(result)}`)
+  }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
       {/* Headers */}
@@ -17,7 +35,7 @@ export default function Home() {
         {/* Login Section */}
         <div className="w-3/5 p-5">
           {/* Login Form */}
-          <form action={process.env.baseUrl} method="post" className="w-100">
+          <form id="loginForm" onSubmit={onLoginSubmit} className="w-100">
             {/* Top Left Name */}
             <div className="text-left font-bold">
               <span className="text-green-500">Degree</span>Overview
@@ -36,7 +54,7 @@ export default function Home() {
               <div className="bg-gray-100 w-64 p-2 flex items-center">
                 <FaRegUser className="text-gray-400 m-2" />
                 <input
-                  type="email"
+                  type="text"
                   required
                   placeholder="Account"
                   name="account"
@@ -82,6 +100,8 @@ export default function Home() {
                   type="radio"
                   name="roles"
                   value="Course Designer"
+                  defaultChecked
+                  form="loginForm"
                   className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
@@ -98,6 +118,7 @@ export default function Home() {
                   type="radio"
                   name="roles"
                   value="Lecturer"
+                  form="loginForm"
                   className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label
@@ -114,6 +135,7 @@ export default function Home() {
                   type="radio"
                   name="roles"
                   value="Student"
+                  form="loginForm"
                   className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600"
                 />
                 <label

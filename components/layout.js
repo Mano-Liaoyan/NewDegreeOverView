@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Sidebar, Navbar, Dropdown, Avatar, Button } from 'flowbite-react'
+import { Sidebar, Navbar, Dropdown, Avatar } from 'flowbite-react'
 import {
   AiOutlineHome,
   AiOutlinePlus,
@@ -9,7 +9,7 @@ import {
   AiOutlineMenuUnfold,
 } from 'react-icons/ai'
 
-export default function HomePage() {
+export default function Layout({ SidebarItems, Content }) {
   const [isCollapsed, setIsCollapsed] = useState(false)
 
   function changeCollapsed() {
@@ -107,7 +107,9 @@ export default function HomePage() {
           </Sidebar>
         </div>
         {/* content */}
-        <div className="grow"></div>
+        <div className="grow">
+          <Content></Content>
+        </div>
       </div>
     </div>
   )

@@ -17,7 +17,6 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     method: 'POST',
   })
   const result = await rs.json()
-  console.log(`result: ${JSON.stringify(result)}`)
 
   res.status(200).json(result)
 }

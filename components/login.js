@@ -1,7 +1,12 @@
+import Head from 'next/head'
+import { useRouter } from 'next/router'
+
 import { FaRegUser } from 'react-icons/fa'
 import { MdLockOutline } from 'react-icons/md'
 
-export default function Home() {
+export default function Login() {
+  var router = useRouter()
+
   async function onLoginSubmit(event) {
     event.preventDefault()
     // Initialize request body
@@ -18,10 +23,19 @@ export default function Home() {
       method: 'POST',
     })
     const result = await res.json()
+    console.log(result)
+    if (result.code === 0) router.push('/homepage')
+
     // alert(`Is this your full name: ${JSON.stringify(result)}`)
   }
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2 bg-gray-100">
+      {/* Headers */}
+      <Head>
+        <title>DegreeOverview</title>
+        <link rel="icon" href="favicon.ico" />
+      </Head>
+
       {/* Login Components */}
       <div className="bg-white rounded-2xl shadow-2xl flex max-w-4xl w-2/3 text-center">
         {/* Login Section */}
